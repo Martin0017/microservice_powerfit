@@ -20,11 +20,11 @@ import { AuthModule } from './auth/auth.module';
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'martin',
-      password: 'martin',
-      database: 'Powerfit',
+      host: process.env.DATABASE_HOST,
+      port: Number(process.env.DATABASE_PORT.valueOf),
+      username: process.env.DATABASE_USERNAME,
+      password: process.env.DATABASE_PASS,
+      database: process.env.DATABASE_NAME,
       entities: [Actividad, Administrador, Empresa, Registro, Premio, Usuario],
       synchronize: true,
       retryDelay: 3000,

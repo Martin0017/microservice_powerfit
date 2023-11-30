@@ -14,7 +14,7 @@ export class AuthService {
 
     async validateUser(secret: string): Promise<boolean> {
         // Compara las credenciales con un valor fijo
-        const _secret = 'secreto_jwt_losdatosquemadosmolan';
+        const _secret = process.env.SECRET_NOSECURE;
 
         return secret === _secret
     }

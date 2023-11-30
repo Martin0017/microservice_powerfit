@@ -429,11 +429,11 @@ exports.AppModule = AppModule = __decorate([
         imports: [
             typeorm_1.TypeOrmModule.forRoot({
                 type: 'postgres',
-                host: 'localhost',
-                port: 5432,
-                username: 'martin',
-                password: 'martin',
-                database: 'Powerfit',
+                host: process.env.DATABASE_HOST,
+                port: Number(process.env.DATABASE_PORT.valueOf),
+                username: process.env.DATABASE_USERNAME,
+                password: process.env.DATABASE_PASS,
+                database: process.env.DATABASE_NAME,
                 entities: [activity_entity_1.Actividad, administrator_entity_1.Administrador, enterprise_entity_1.Empresa, register_entity_1.Registro, reward_entity_1.Premio, user_entity_1.Usuario],
                 synchronize: true,
                 retryDelay: 3000,
@@ -543,7 +543,7 @@ exports.AuthModule = AuthModule = __decorate([
         imports: [
             passport_1.PassportModule.register({ defaultStrategy: 'jwt' }),
             jwt_1.JwtModule.register({
-                secret: 'secreto_secretisimo',
+                secret: process.env.SECRET_JWT,
                 signOptions: { expiresIn: '24h' },
             }),
         ],
@@ -587,7 +587,7 @@ let AuthService = class AuthService {
         return token;
     }
     async validateUser(secret) {
-        const _secret = 'secreto_jwt_losdatosquemadosmolan';
+        const _secret = process.env.SECRET_NOSECURE;
         return secret === _secret;
     }
 };
@@ -1897,6 +1897,16 @@ module.exports = require("bcrypt");
 
 /***/ }),
 
+/***/ "dotenv":
+/*!*************************!*\
+  !*** external "dotenv" ***!
+  \*************************/
+/***/ ((module) => {
+
+module.exports = require("dotenv");
+
+/***/ }),
+
 /***/ "passport-jwt":
 /*!*******************************!*\
   !*** external "passport-jwt" ***!
@@ -1953,6 +1963,7 @@ var exports = __webpack_exports__;
   \*************************************/
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
+(__webpack_require__(/*! dotenv */ "dotenv").config)();
 const core_1 = __webpack_require__(/*! @nestjs/core */ "@nestjs/core");
 const app_module_1 = __webpack_require__(/*! ./app.module */ "./apps/databasems/src/app.module.ts");
 async function bootstrap() {
